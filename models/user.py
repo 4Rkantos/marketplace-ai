@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String
-from ..database.config import Base
+from database.config import Base
 from pydantic import BaseModel, EmailStr
 
 # Model

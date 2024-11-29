@@ -5,7 +5,8 @@ import os
 load_dotenv()
 
 # Configurações do Banco de Dados
-DATABASE_URL = os.getenv("DATABASE_URL")
+DATABASE_URL = "postgresql://joao_silva:123@localhost/marketplaceiadb"
+#os.getenv("DATABASE_URL")
 
 # Configurações de E-mail
 MAIL_SERVER = os.getenv("MAIL_SERVER")
