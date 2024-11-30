@@ -1,4 +1,5 @@
 from sqlalchemy import Column, Integer, String, Float
+from sqlalchemy.orm import relationship
 from database.config import Base
 from pydantic import BaseModel
 
@@ -11,6 +12,9 @@ class Solution(Base):
     description = Column(String)
     price = Column(Float)
     category = Column(String)
+
+    # Relacionamento Many-to-Many com Order
+    orders = relationship("Order", secondary="order_solutions", back_populates="solutions")
 
 # Schema base
 class SolutionBase(BaseModel):
