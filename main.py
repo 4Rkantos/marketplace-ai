@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from api.user.routes import app as user_router
+from api.solution.routes import app as solution_router
 from database.config import Base, engine
 
 # Criar tabelas no banco de dados
@@ -28,6 +29,7 @@ app.add_middleware(
 
 # Registro de roteadores
 app.include_router(user_router, prefix="/api/users", tags=["Users"])
+app.include_router(solution_router, prefix="/api/solutions", tags=["Solutions"])
 
 # Rota base para verificação
 @app.get("/")
