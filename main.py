@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from api.user.routes import app as user_router
-from api.solution.routes import app as solution_router
-from api.order.routes import app as order_router
+from api.user.routes import router as user_router
+from api.solution.routes import router as solution_router
+from api.order.routes import router as order_router
 from database.config import Base, engine
 
 # Criar tabelas no banco de dados
@@ -18,7 +18,7 @@ app = FastAPI(
 # Configuração de CORS (Cross-Origin Resource Sharing)
 origins = [
     "http://localhost",
-    "http://localhost:3000",  # Front-end local
+    "http://localhost:3000",
 ]
 app.add_middleware(
     CORSMiddleware,

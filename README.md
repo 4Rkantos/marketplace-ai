@@ -48,4 +48,4 @@ Certifique-se de ter instalado:
    ```bash
     - No PostgreSQL, crie um banco chamado marketplace_ai.
     - Configure as credenciais no arquivo .env:
-    DATABASE_URL=postgresql://<usuario>:<senha>@localhost:porta/marketplace_ai
+    DATABASE_URL="postgresql://<usuario>:<senha>@localhost:porta/marketplace_ai"
