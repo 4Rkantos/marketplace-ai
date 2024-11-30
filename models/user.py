@@ -8,6 +8,7 @@ class User(Base):
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, nullable=False)   
     email = Column(String, unique=True, index=True)
     password = Column(String)
 
@@ -16,13 +17,20 @@ class User(Base):
 
 # Schema base
 class UserBase(BaseModel):
-    email: EmailStr  
+    name: str
+    email: EmailStr
     
 class UserCreate(UserBase):
     password: str
 
-class UserResponse(UserBase):
+class UserResponse(BaseModel):
     id: int
+    name: str
+    email: EmailStr
 
     class Config:
         orm_mode = True
+
+class UserLogin(BaseModel):
+    email: EmailStr
+    password: str
