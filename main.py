@@ -4,6 +4,8 @@ from api.user.routes import router as user_router
 from api.solution.routes import router as solution_router
 from api.order.routes import router as order_router
 from database.config import Base, engine
+from api.utils.middleware import JWTAuthenticationMiddleware
+
 
 # Criar tabelas no banco de dados
 Base.metadata.create_all(bind=engine)

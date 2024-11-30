@@ -1,26 +1,8 @@
 from sqlalchemy.orm import Session
 from models.user import User  # Modelo SQLAlchemy
 from models.user import UserCreate  # Modelo Pydantic para criação
-from passlib.context import CryptContext
+from api.utils.utils import get_password_hash, get_user_by_email, verify_password
 
-# 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-
-# Funções auxiliares
-
-#Gera um hash para a senha
-def get_password_hash(password: str) -> str:
-    return pwd_context.hash(password)
-
-#Verifica se a senha fornecida combina com o hash do banco
-def verify_password(plain_password: str, hashed_password: str) -> bool:
-    return pwd_context.verify(plain_password, hashed_password)
-
-#Busca usuário por e-mail
-def get_user_by_email(db: Session, email: str):
-    return db.query(User).filter(User.email == email).first()
-
-#Funções das APIs 
 #Busca usuário por ID
 def get_user(db: Session, user_id: int):
     # Consulta usando o modelo SQLAlchemy
@@ -32,11 +14,20 @@ def get_users(db: Session, skip: int = 0, limit: int = 10):
     return db.query(User).offset(skip).limit(limit).all()
 
 #Cria um novo usuário
-def create_user(db: Session, user: UserCreate):
+def create_user(db: Session, user: UserCreate, is_admin: bool = False):
     if get_user_by_email(db, user.email):
         raise ValueError("Email já cadastrado.")
+    
+    #Cria o hash da senha
     hashed_password = get_password_hash(user.password)
-    db_user = User(name=user.name, email=user.email, password=hashed_password)
+
+    # Atualiza o banco de dados com o novo usuário
+    db_user = User(
+        name=user.name, 
+        email=user.email, 
+        password=hashed_password, 
+        is_admin=is_admin
+    )
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
