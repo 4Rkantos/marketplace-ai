@@ -23,6 +23,7 @@ class UserBase(BaseModel):
     
 class UserCreate(UserBase):
     password: str
+    is_admin: bool = False
 
 class UserResponse(BaseModel):
     id: int

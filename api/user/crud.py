@@ -18,7 +18,7 @@ def create_user(db: Session, user: UserCreate, is_admin: bool = False):
     if get_user_by_email(db, user.email):
         raise ValueError("Email já cadastrado.")
     
-    #Cria o hash da senha
+    # Cria o hash da senha
     hashed_password = get_password_hash(user.password)
 
     # Atualiza o banco de dados com o novo usuário
@@ -26,7 +26,7 @@ def create_user(db: Session, user: UserCreate, is_admin: bool = False):
         name=user.name, 
         email=user.email, 
         password=hashed_password, 
-        is_admin=is_admin
+        is_admin=user.is_admin
     )
     db.add(db_user)
     db.commit()
